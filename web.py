@@ -18,15 +18,16 @@ def conversion_mp3_mp4(sound_data, file_name):
     if "mp3" in file_name:
         # print("mp3")
         sound = AudioSegment.from_file(sound_data, "mp3")
-        return sound, io.BufferedRandom(sound.export(r"output.wav", format="wav"))
+        print(sound)
+        return sound, io.BufferedRandom(sound.export(format="wav"))
     elif "mp4" in file_name:
         # print("mp4")
         sound = AudioSegment.from_file(sound_data, "mp4")
-        return sound, io.BufferedRandom(sound.export(r"output.wav", format="wav"))
+        return sound, io.BufferedRandom(sound.export(format="wav"))
     else:
         # print("wav")
         sound = AudioSegment.from_file(sound_data, "wav")
-        return sound, io.BufferedRandom(sound.export(r"output.wav", format="wav"))
+        return sound, io.BufferedRandom(sound.export(format="wav"))
 
 st.title("タイトル")
 st.write("説明")
