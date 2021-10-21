@@ -34,31 +34,33 @@ st.write("説明")
 
 st.title("①ファイルから文字起こし")
 st.write("説明")
-file = st.file_uploader("", type="mp3")
+file = st.file_uploader("", type=["mp3", 'wav'])
 if file:
-    st.audio(file, format="audio/mp3")
+    st.audio(file)
     start_one = st.button("①開始")
     if start_one == True:
         conversion = conversion_mp3_mp4(file, file.name)
-        # print(conversion[0])
-        # print(conversion[1])
-        # chunks = split_on_silence(conversion[0], min_silence_len=2000, silence_thresh=-40, keep_silence=1000)
-        # print(chunks)
+        print(conversion[0])
+        print(conversion[1])
+        chunks = split_on_silence(conversion[0], min_silence_len=2000, silence_thresh=-40, keep_silence=1000)
+        print(chunks)
+        z = [ io.BufferedRandom(chunk.export(format="wav")) for i, chunk in enumerate(chunks)]
+        print(z)
         r = sr.Recognizer()
-        x = []
-        # for i in chunks:
-        #     print(i)
-        with sr.AudioFile(conversion[1]) as source:
+        texts = []
+        for i in z:
+            print(i)
+            with sr.AudioFile(i) as source:
 
-            audio = r.record(source)
+                audio = r.record(source)
 
-        text = r.recognize_google(audio, language='ja-JP', show_all=False)
-        x.append(text)
+            text = r.recognize_google(audio, language='ja-JP', show_all=False)
+            texts.append(text)
+        text = "、".join(texts)
         st.write(text)
-
         
         contents_one = f"ファイルから文字起こしファイルから文字起こしファイルから文字起こし"
-        download_one = st.download_button("①ダウンロード", contents_one)
+        download_one = st.download_button("①ダウンロード", text)
 
 
 st.title("②リアルタイムで文字起こし")
