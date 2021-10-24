@@ -17,7 +17,7 @@ def conversion_mp3_mp4(sound_data, file_name):
     # print(os.path.splitext(file_name))
     if "mp3" in file_name:
         # print("mp3")
-        sound = AudioSegment.from_file(sound_data, "mp3")
+        sound = AudioSegment.from_mp3(sound_data)
         print(sound)
         return sound, io.BufferedRandom(sound.export(format="wav"))
     elif "mp4" in file_name:
