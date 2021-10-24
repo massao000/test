@@ -40,18 +40,11 @@ if file:
     st.audio(file)
     start_one = st.button("①開始")
     if start_one == True:
-        # 入力
-        stream = ffmpeg.input(file.name)
-        print(stream)
-        # 出力
-        stream = ffmpeg.output(stream, "test.wav")
-        # 実行
-        x = io.IOBase(ffmpeg.run(stream))
-
-        print(x)
-        sound = AudioSegment.from_file('test.wav', format="wav")
-
-        chunks = split_on_silence(sound, min_silence_len=2000, silence_thresh=-40, keep_silence=1000)
+        conversion = conversion_mp3_mp4(file, file.name)
+        # print(conversion[0])
+        # print(conversion[1])
+        chunks = split_on_silence(conversion[0], min_silence_len=2000, silence_thresh=-40, keep_silence=1000)
+        # print(chunks)
         z = [ io.BufferedRandom(chunk.export(format="wav")) for i, chunk in enumerate(chunks)]
         # print(z)
         r = sr.Recognizer()
