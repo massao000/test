@@ -61,8 +61,7 @@ if file:
         
         contents_one = f"ファイルから文字起こしファイルから文字起こしファイルから文字起こし"
         download_one = st.download_button("①ダウンロード", text)
-        if download_one:
-            st.balloons()
+        st.balloons()
 
 
 st.title("②リアルタイムで文字起こし")
