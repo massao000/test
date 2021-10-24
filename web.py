@@ -6,6 +6,7 @@ import io
 import glob
 import os
 import shutil
+import ffmpeg
 
 import streamlit as st
 
