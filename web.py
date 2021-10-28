@@ -30,6 +30,8 @@ def conversion_mp3_mp4(sound_data, file_name):
         sound = AudioSegment.from_file(sound_data, "wav")
         return sound, io.BufferedRandom(sound.export(format="wav"))
 
+st.write(os.path.dirname(__file__))
+    
 st.title("タイトル")
 st.write("説明")
 
