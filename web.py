@@ -89,8 +89,8 @@ if file:
             download_one = st.download_button("①ダウンロード", text, f"file_{now}.txt")
             st.balloons()
 
-            # elapsed_time = time.time() - dt # 経過時間計測
-            # st.write(f'ラップ{elapsed_time:.2f}')
+            elapsed_time = time.time() - dt # 経過時間計測
+            st.write(f'ラップ{elapsed_time:.2f}')
             # print(f'ラップ{elapsed_time:.2f}')
 
 
