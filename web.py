@@ -116,6 +116,8 @@ if start_two:
     except OSError as e:
         # st.write('<span style="color:red;">マイクを接続してください</span>', unsafe_allow_html=True)
         st.error('マイクを接続してください')
+    except:
+        st.error('その他のエラー')
     else: # エラーが無ければ処理に入る
         # マイクの入力の繰り返し
         texts = []
