@@ -94,13 +94,12 @@ audio_cat = r"TEMP\cat"    # ファイルカット一時保存
 # save_audio = os.path.join(directory, r"TEMP\audio") # wav変換ファイル一時保存
 # audio_cat = os.path.join(directory, r"TEMP\cat")    # ファイルカット一時保存
 
-st.write(glob.glob("TEMP/*"))
+
 
 y = glob.glob(f'{save_audio}/*')
 y2 = glob.glob(f'{audio_cat}/*')
 
-st.write(y)
-st.write(y2)
+
 
 for i in y:
     os.remove(i)
@@ -114,6 +113,9 @@ st.set_page_config(
     page_title="らくらく文字起こし",
     # layout="wide", # 全画面か中央表示か
 )
+st.write(glob.glob("TEMP/*"))
+st.write(y)
+st.write(y2)
 
 st.title("らくらく文字起こし")
 st.write("会議の議事録作成、インタビュー・動画の音声をテキスト化などにご活用いただけます。")
