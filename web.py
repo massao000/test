@@ -94,8 +94,14 @@ audio_cat = r"TEMP\cat"    # ファイルカット一時保存
 # save_audio = os.path.join(directory, r"TEMP\audio") # wav変換ファイル一時保存
 # audio_cat = os.path.join(directory, r"TEMP\cat")    # ファイルカット一時保存
 
+st.write(glob.glob("TEMP/*"))
+
 y = glob.glob(f'{save_audio}/*')
 y2 = glob.glob(f'{audio_cat}/*')
+
+st.write(y)
+st.write(y2)
+
 for i in y:
     os.remove(i)
 for i in y2:
