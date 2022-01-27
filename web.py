@@ -1,4 +1,3 @@
-# 音声を扱う
 from re import T
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
@@ -6,26 +5,104 @@ import speech_recognition as sr
 import io, time, datetime
 import streamlit as st
 
+import wave
+import struct
+import math
+from scipy import fromstring, int16
+import numpy
+import os
+import glob
 
-def conversion_mp3_mp4(sound_data, file_name):
+# 自然数ソート
+from natsort import natsorted
+
+# ファイルの分割
+def wav_cut(directory, time, filesave):
+
+    for i in directory:
+        file_name, exe = os.path.splitext(os.path.basename(i))
+        # print(file_name)
+        # ファイルを読み出し
+        wavf = i
+        wr = wave.open(wavf, 'r')
+    
+        # waveファイルが持つ性質を取得
+        ch = wr.getnchannels()
+        width = wr.getsampwidth()
+        fr = wr.getframerate()
+        fn = wr.getnframes()
+        total_time = 1.0 * fn / fr
+        integer = math.floor(total_time) # 小数点以下切り捨て
+        t = int(time)  # 秒数[sec]
+        frames = int(ch * fr * t)
+        num_cut = int(math.ceil(integer/t))
+
+        # waveの実データを取得し、数値化
+        data = wr.readframes(wr.getnframes())
+        wr.close()
+        X = numpy.frombuffer(data, dtype=int16)
+        # print(X)
+    
+        for i in range(num_cut):
+            # print(i)
+            # 出力データを生成
+            outf = f"{filesave}/{file_name}-{str(i)}.wav"
+            start_cut = i*frames
+            end_cut = i*frames + frames
+            # print(f'スタート{start_cut}')
+            # print(f'エンド{end_cut}')
+            Y = X[start_cut:end_cut]
+            outd = struct.pack("h" * len(Y), *Y)
+ 
+            # 書き出し
+            ww = wave.open(outf, 'w')
+            ww.setnchannels(ch)
+            ww.setsampwidth(width)
+            ww.setframerate(fr)
+            ww.writeframes(outd)
+            ww.close()
+
+
+def conversion_mp3_mp4(sound_data, file_name, save_dri):
     """ 音声ファイルをwavに変換する
     sound_data : アップロードされた音声ファイル
     file_name : アップロードされた音声ファイル名
     """
+
     # print(os.path.splitext(file_name))
     if "mp3" in file_name:
         # print("mp3")
         sound = AudioSegment.from_file(sound_data, "mp3")
         # print(sound)
-        return sound, io.BufferedRandom(sound.export(format="wav"))
+        sound.export(f"{save_dri}/output1.wav", format="wav")
+        # return sound, io.BufferedRandom(sound.export(format="wav"))
     elif "mp4" in file_name:
         # print("mp4")
         sound = AudioSegment.from_file(sound_data, "mp4")
-        return sound, io.BufferedRandom(sound.export(format="wav"))
+        sound.export(f"{save_dri}/output1.wav", format="wav")
+        # return sound, io.BufferedRandom(sound.export(format="wav"))
     else:
         # print("wav")
         sound = AudioSegment.from_file(sound_data, "wav")
-        return sound, io.BufferedRandom(sound.export(format="wav"))
+        sound.export(f"{save_dri}/output1.wav", format="wav")
+        # return sound, io.BufferedRandom(sound.export(format="wav"))
+
+# ディレクトリーたち
+directory = os.path.dirname(__file__)
+# save_audio = r"main\TEMP\audio" # wav変換ファイル一時保存
+# audio_cat = r"main\TEMP\cat"    # ファイルカット一時保存
+save_audio = os.path.join(directory, r"TEMP\audio") # wav変換ファイル一時保存
+audio_cat = os.path.join(directory, r"TEMP\cat")    # ファイルカット一時保存
+
+y = glob.glob(f'{save_audio}/*')
+y2 = glob.glob(f'{audio_cat}/*')
+for i in y:
+    os.remove(i)
+for i in y2:
+    os.remove(i)
+
+# 切り取りタイム
+cut_time = 60
 
 st.set_page_config(
     page_title="らくらく文字起こし",
@@ -39,6 +116,7 @@ st.write("<hr>", unsafe_allow_html=True)
 st.header("ファイルから文字起こし")
 st.write("音声・動画ファイルをアップロードするだけでテキストに変換")
 file = st.file_uploader("", type=["mp3", 'wav', "mp4"])
+
 if file:
     st.audio(file)
     start_one = st.button("1開始")
@@ -50,17 +128,13 @@ if file:
         placeholder2 = st.empty()
         placeholder.warning("処理中・・・")
 
-        conversion = conversion_mp3_mp4(file, file.name)
-
-        # 無音部分のカット
-        chunks = split_on_silence(conversion[0], min_silence_len=2000, silence_thresh=-40, keep_silence=800)
-
-        # カットされた音声をメモリの一時的に保存する
-        z = [ io.BufferedRandom(chunk.export(format="wav")) for i, chunk in enumerate(chunks)]
-
+        conversion = conversion_mp3_mp4(file, file.name, save_audio)
+        audio_dri = glob.glob(f'{save_audio}/*')
+        wav_cut(audio_dri, cut_time, audio_cat)
+        datas = natsorted(glob.glob(f'{audio_cat}\*'))
 
         r = sr.Recognizer()
-        for i in z:
+        for i in datas:
             with sr.AudioFile(i) as source:
 
                 audio = r.record(source)
@@ -69,12 +143,18 @@ if file:
                 # テキストに変換
                 text = r.recognize_google(audio, language='ja-JP', show_all=False) # 英語にも太陽出来るようにできればする
                 texts.append(text)
+                answer = '変換完了'
             except:
                 # placeholder2.write("一部変換できませんでした")
                 placeholder2.warning("一部変換できませんでした") # ボックス追加
+                answer = '変換できなかった'
+            
+            # 何が変換されたかチェック用
+            print(f'{i} {answer}')
 
         # placeholder.write('<span style="color:blue;">完了！</span>', unsafe_allow_html=True)
         placeholder.success('完了！')
+
 
         if len(texts) != 0:
             text = "\n".join(texts) # テキストファイル用
@@ -116,8 +196,6 @@ if start_two:
     except OSError as e:
         # st.write('<span style="color:red;">マイクを接続してください</span>', unsafe_allow_html=True)
         st.error('マイクを接続してください')
-    except:
-        st.error('その他のエラー')
     else: # エラーが無ければ処理に入る
         # マイクの入力の繰り返し
         texts = []
@@ -172,4 +250,3 @@ if start_two:
                     # placeholder.info(contents_two) # ボックス追加
                     contents_two = f"{now} {contents_two}"
                     texts.append(contents_two)
-                
