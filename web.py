@@ -84,7 +84,7 @@ def conversion_mp3_mp4(sound_data, file_name, save_dri):
     else:
         # print("wav")
         sound = AudioSegment.from_file(sound_data, "wav")
-        sound.export("TEMP\output1.wav", format="wav")
+        sound.export("/app/test/TEMP\output1.wav", format="wav")
         # return sound, io.BufferedRandom(sound.export(format="wav"))
 
 # ディレクトリーたち
