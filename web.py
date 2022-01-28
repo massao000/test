@@ -113,6 +113,8 @@ st.set_page_config(
     page_title="らくらく文字起こし",
     # layout="wide", # 全画面か中央表示か
 )
+
+st.write(directory)
 st.write(glob.glob("TEMP/*"))
 st.write(y)
 st.write(y2)
