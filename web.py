@@ -143,6 +143,8 @@ if file:
 
         st.write(glob.glob(f"{directory}/*"))
 
+        st.write(glob.glob("TEMP/*"))
+
         st.write(y)
         st.write(y2)
 
