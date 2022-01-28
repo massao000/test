@@ -138,6 +138,12 @@ if file:
 
         conversion = conversion_mp3_mp4(file, file.name, save_audio)
         audio_dri = glob.glob(f'{save_audio}/*')
+
+        st.write(y)
+        st.write(y2)
+
+        st.write(audio_dri)
+
         wav_cut(audio_dri, cut_time, audio_cat)
         datas = natsorted(glob.glob(f'{audio_cat}\*'))
 
