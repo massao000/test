@@ -57,6 +57,7 @@ def wav_cut(directory, time, filesave):
  
             # 書き出し
             ww = wave.open(outf, 'w')
+            st.write(ww)
             ww.setnchannels(ch)
             ww.setsampwidth(width)
             ww.setframerate(fr)
