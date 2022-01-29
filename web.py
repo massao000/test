@@ -154,6 +154,7 @@ if file:
 
         r = sr.Recognizer()
         for i in datas:
+            one_time = time.time() # １つにかかる時間
             with sr.AudioFile(i) as source:
 
                 audio = r.record(source)
@@ -171,7 +172,7 @@ if file:
             # 何が変換されたかチェック用
             print(f'{i} {answer}')
 
-            elapsed_time = time.time() - dt # 経過時間計測
+            elapsed_time = time.time() - one_time # 経過時間計測
             st.write(f'ラップ{elapsed_time:.2f}')
 
         # placeholder.write('<span style="color:blue;">完了！</span>', unsafe_allow_html=True)
