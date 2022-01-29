@@ -150,7 +150,10 @@ if file:
 
         wav_cut(audio_dri, cut_time, audio_cat)
         datas = natsorted(glob.glob(f'{audio_cat}/*'))
-        st.write(f"変換予想時間:{int(len(datas)) * 8}")
+
+        cat_count = int(len(datas))
+
+        st.write(f"変換予想時間:{cat_count * 8}")
 
         r = sr.Recognizer()
         for i in datas:
@@ -194,7 +197,7 @@ if file:
 
             elapsed_time = time.time() - dt # 経過時間計測
             st.write(f'ラップ{elapsed_time:.2f}')
-            # print(f'ラップ{elapsed_time:.2f}')
+            st.write(f'変換の平均{elapsed_time // cat_count}') # チェック用
 
 
 
