@@ -36,7 +36,7 @@ def wav_cut(directory, time, filesave):
         t = int(time)  # 秒数[sec]
         frames = int(ch * fr * t)
         num_cut = int(math.ceil(integer/t))
-        st.write(ch)
+        
         # waveの実データを取得し、数値化
         data = wr.readframes(wr.getnframes())
         wr.close()
@@ -47,6 +47,7 @@ def wav_cut(directory, time, filesave):
             # print(i)
             # 出力データを生成
             outf = f"{filesave}/{file_name}-{str(i)}.wav"
+            st.write(outf)
             start_cut = i*frames
             end_cut = i*frames + frames
             # print(f'スタート{start_cut}')
