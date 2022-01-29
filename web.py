@@ -57,12 +57,12 @@ def wav_cut(directory, time, filesave):
  
             # 書き出し
             ww = wave.open(outf, 'w')
-            st.write(ww)
             ww.setnchannels(ch)
             ww.setsampwidth(width)
             ww.setframerate(fr)
             ww.writeframes(outd)
             ww.close()
+            st.write(filesave)
 
 
 def conversion_mp3_mp4(sound_data, file_name, save_dri):
