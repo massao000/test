@@ -144,7 +144,7 @@ if file:
 
         st.write(glob.glob(f"{directory}/*"))
 
-        st.write(glob.glob("TEMP/*"))
+        st.write(glob.glob("TEMP/audio/*"))
 
         st.write(glob.glob(f"{y}/*"))
         st.write(glob.glob(f"{y2}/*"))
