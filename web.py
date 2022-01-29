@@ -164,7 +164,7 @@ if file:
 
         cat_count = int(len(datas))
 
-        st.write(f"変換予想時間:{cat_count * 8}")
+        # st.write(f"変換予想時間:{cat_count * 8}")
 
         placeholder3.write(f"変換予想時間:{cat_count * 8}")
 
