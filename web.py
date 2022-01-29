@@ -150,7 +150,7 @@ if file:
 
         wav_cut(audio_dri, cut_time, audio_cat)
         datas = natsorted(glob.glob(f'{audio_cat}/*'))
-        st.write(f"変換予想時間:{int(len(datas)) * 10}")
+        st.write(f"変換予想時間:{int(len(datas)) * 8}")
 
         r = sr.Recognizer()
         for i in datas:
