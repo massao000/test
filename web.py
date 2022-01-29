@@ -90,8 +90,8 @@ def conversion_mp3_mp4(sound_data, file_name, save_dri):
 
 # ディレクトリーたち
 directory = os.path.dirname(__file__)
-save_audio = r"TEMP\audio" # wav変換ファイル一時保存
-audio_cat = r"TEMP\cat"    # ファイルカット一時保存
+save_audio = r"TEMP/audio" # wav変換ファイル一時保存
+audio_cat = r"TEMP/cat"    # ファイルカット一時保存
 # save_audio = os.path.join(directory, r"TEMP\audio") # wav変換ファイル一時保存
 # audio_cat = os.path.join(directory, r"TEMP\cat")    # ファイルカット一時保存
 
