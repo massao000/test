@@ -47,7 +47,7 @@ def wav_cut(directory, time, filesave):
             # print(i)
             # 出力データを生成
             outf = f"{filesave}/{file_name}-{str(i)}.wav"
-            st.write(outf)
+            
             start_cut = i*frames
             end_cut = i*frames + frames
             # print(f'スタート{start_cut}')
@@ -150,6 +150,7 @@ if file:
 
         wav_cut(audio_dri, cut_time, audio_cat)
         datas = natsorted(glob.glob(f'{audio_cat}\*'))
+        st.write(datas)
 
         r = sr.Recognizer()
         for i in datas:
