@@ -145,8 +145,8 @@ if file:
 
         st.write(glob.glob("TEMP/*"))
 
-        st.write(y)
-        st.write(y2)
+        st.write(glob.glob(f"{y}/*"))
+        st.write(glob.glob(f"{y2}/*"))
 
         st.write(audio_dri)
 
