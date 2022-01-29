@@ -25,7 +25,9 @@ def wav_cut(directory, time, filesave):
         # ファイルを読み出し
         wavf = i
         wr = wave.open(wavf, 'r')
-    
+        
+        st.write(i)
+        
         # waveファイルが持つ性質を取得
         ch = wr.getnchannels()
         width = wr.getsampwidth()
