@@ -155,7 +155,7 @@ if file:
         st.write(xxxx)
 
         r = sr.Recognizer()
-        for i in datas:
+        for i in xxxx:
             with sr.AudioFile(i) as source:
 
                 audio = r.record(source)
