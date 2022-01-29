@@ -134,8 +134,8 @@ st.write("会議の議事録作成、インタビュー・動画の音声をテ�
 st.write("<hr>", unsafe_allow_html=True)
 st.header("ファイルから文字起こし")
 st.write("音声・動画ファイルをアップロードするだけでテキストに変換")
-file = st.file_uploader("", type=['wav', "m4a"])
-# file = st.file_uploader("", type=["mp3", 'wav', "mp4", "m4a"])
+file = st.file_uploader("", type=['wav'])
+# file = st.file_uploader("", type=["mp3", 'wav', "mp4"])
 
 if file:
     st.audio(file)
