@@ -142,11 +142,8 @@ if file:
 
         conversion = conversion_mp3_mp4(file, file.name, save_audio)
         audio_dri = glob.glob(f'{save_audio}/*')
-
-        print(glob.glob(f"{directory}/*"))
-        print(glob.glob("TEMP/audio/*"))
-        print(glob.glob(f"{y}/*"))
-        print(glob.glob(f"{y2}/*"))
+        
+        st.write(audio_dri)
 
         print(audio_dri)
 
