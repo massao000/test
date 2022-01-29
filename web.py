@@ -81,6 +81,13 @@ def conversion_mp3_mp4(sound_data, file_name, save_dri):
         sound = AudioSegment.from_file(sound_data, "mp4")
         sound.export(f"{save_dri}/output1.wav", format="wav")
         # return sound, io.BufferedRandom(sound.export(format="wav"))
+
+    elif "m4a" in file_name:
+        # print("mp4")
+        sound = AudioSegment.from_file(sound_data, "m4a")
+        sound.export(f"{save_dri}/output1.wav", format="wav")
+        # return sound, io.BufferedRandom(sound.export(format="wav"))
+
     else:
         # print("wav")
         sound = AudioSegment.from_file(sound_data, "wav")
@@ -139,7 +146,11 @@ if file:
 
         placeholder = st.empty()
         placeholder2 = st.empty()
-        placeholder.warning("処理中・・・")
+
+        placeholder3 = st.empty()
+        placeholder3.write("変換時間の計算中")
+
+        # placeholder.warning("処理中・・・")
 
         conversion = conversion_mp3_mp4(file, file.name, save_audio)
         audio_dri = glob.glob(f'{save_audio}/*')
@@ -154,6 +165,10 @@ if file:
         cat_count = int(len(datas))
 
         st.write(f"変換予想時間:{cat_count * 8}")
+
+        placeholder3.write(f"変換予想時間:{cat_count * 8}")
+
+        placeholder.warning("処理中・・・")
 
         r = sr.Recognizer()
         for i in datas:
