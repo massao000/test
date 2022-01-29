@@ -26,8 +26,6 @@ def wav_cut(directory, time, filesave):
         wavf = i
         wr = wave.open(wavf, 'r')
         
-        st.write(i)
-        
         # waveファイルが持つ性質を取得
         ch = wr.getnchannels()
         width = wr.getsampwidth()
@@ -38,7 +36,7 @@ def wav_cut(directory, time, filesave):
         t = int(time)  # 秒数[sec]
         frames = int(ch * fr * t)
         num_cut = int(math.ceil(integer/t))
-
+        st.write(ch)
         # waveの実データを取得し、数値化
         data = wr.readframes(wr.getnframes())
         wr.close()
