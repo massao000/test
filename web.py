@@ -63,7 +63,7 @@ def wav_cut(directory, time, filesave):
             ww.writeframes(outd)
             ww.close()
             st.write(ww)
-            st.write(io.BufferedRandom(ww))
+            st.write(io.BufferedWriter(ww))
 
 
 def conversion_mp3_mp4(sound_data, file_name, save_dri):
