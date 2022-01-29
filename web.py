@@ -135,7 +135,7 @@ st.write("<hr>", unsafe_allow_html=True)
 st.header("ファイルから文字起こし")
 st.write("音声・動画ファイルをアップロードするだけでテキストに変換")
 file = st.file_uploader("", type=['wav'])
-# file = st.file_uploader("", type=["mp3", 'wav', "mp4"])
+# file = st.file_uploader("", type=["mp3", 'wav', "mp4", "m4a"])
 
 if file:
     st.audio(file)
