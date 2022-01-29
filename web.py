@@ -18,7 +18,7 @@ from natsort import natsorted
 
 # ファイルの分割
 def wav_cut(directory, time, filesave):
-    d = []
+
     for i in directory:
         file_name, exe = os.path.splitext(os.path.basename(i))
         # print(file_name)
@@ -63,8 +63,6 @@ def wav_cut(directory, time, filesave):
             ww.writeframes(outd)
             ww.close()
             st.write(ww)
-            d.append(ww)
-    return d
 
 def conversion_mp3_mp4(sound_data, file_name, save_dri):
     """ 音声ファイルをwavに変換する
@@ -150,12 +148,12 @@ if file:
 
         print(audio_dri)
 
-        xxxx = wav_cut(audio_dri, cut_time, audio_cat)
+        wav_cut(audio_dri, cut_time, audio_cat)
         datas = natsorted(glob.glob(f'{audio_cat}\*'))
         st.write(xxxx)
 
         r = sr.Recognizer()
-        for i in xxxx:
+        for i in datas:
             with sr.AudioFile(i) as source:
 
                 audio = r.record(source)
