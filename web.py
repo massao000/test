@@ -115,11 +115,11 @@ st.set_page_config(
     # layout="wide", # 全画面か中央表示か
 )
 
-st.write(glob.glob(f"{directory}/*"))
-st.write(glob.glob("TEMP/*"))
-st.write(glob.glob(r"TEMP/audio/*"))
-st.write(glob.glob(f"{y}/*"))
-st.write(glob.glob(f"{y2}/*"))
+# st.write(glob.glob(f"{directory}/*"))
+# st.write(glob.glob("TEMP/*"))
+# st.write(glob.glob(r"TEMP/audio/*"))
+# st.write(glob.glob(f"{y}/*"))
+# st.write(glob.glob(f"{y2}/*"))
 
 st.title("らくらく文字起こし")
 st.write("会議の議事録作成、インタビュー・動画の音声をテキスト化などにご活用いただけます。")
