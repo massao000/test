@@ -301,7 +301,7 @@ if start_two:
                 
 
 
-stt_button = st.button(label="Speak", width=100)
+stt_button = st.button()
 
 stt_button.js_on_event("button_click", CustomJS(code="""
     var recognition = new webkitSpeechRecognition();
