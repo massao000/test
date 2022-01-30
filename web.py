@@ -122,7 +122,7 @@ st.set_page_config(
     # layout="wide", # 全画面か中央表示か
 )
 
-# st.write(glob.glob(f"{directory}/*"))
+st.write(glob.glob(f"{directory}/*"))
 # st.write(glob.glob("TEMP/*"))
 # st.write(glob.glob(r"TEMP/audio/*"))
 # st.write(glob.glob(f"{y}/*"))
